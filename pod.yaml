@@ -3,6 +3,8 @@ kind: Pod
 metadata:
   name: firstpod
   namespace: homework
+  labels:
+    app: web-server
 spec:
   volumes:
     - name: shared-volume
