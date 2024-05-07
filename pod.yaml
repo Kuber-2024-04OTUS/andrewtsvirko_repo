@@ -20,6 +20,9 @@ spec:
       ports:
         - containerPort: 8000
       volumeMounts:
+        - name: nginx-conf
+          mountPath: /etc/nginx/conf.d/default.conf
+          subPath: nginx.conf
         - name: shared-volume
           mountPath: /homework
       lifecycle:
