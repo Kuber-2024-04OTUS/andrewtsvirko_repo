@@ -6,10 +6,6 @@ metadata:
   labels:
     app: web-server
 spec:
-  volumes:
-    - name: shared-volume
-      emptyDir: {}
-
   initContainers:
     - name: init
       image: busybox
@@ -25,8 +21,16 @@ spec:
         - containerPort: 8000
       volumeMounts:
         - name: shared-volume
-          mountPath: /usr/share/nginx/html
+          mountPath: /homework
       lifecycle:
         preStop:
           exec:
-            command: ["rm", "/usr/share/nginx/html/index.html"]
+            command: ["rm", "/homework/index.html"]
+
+
+  volumes:
+    - name: shared-volume
+      emptyDir: {}
+    - name: nginx-conf
+      configMap:
+        name: nginx-config
