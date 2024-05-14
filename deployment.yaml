@@ -52,3 +52,12 @@ spec:
         - name: nginx-conf
           configMap:
             name: nginx-config
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: homework
+                operator: In
+                values:
+                - "true"
