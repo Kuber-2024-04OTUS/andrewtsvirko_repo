@@ -40,10 +40,9 @@ spec:
               exec:
                 command: ["rm", "/homework/index.html"]
           readinessProbe:
-            exec:
-              command:
-                - cat
-                - /homework/index.html
+            httpGet:
+              path: /index.html
+              port: 8000
             initialDelaySeconds: 5
             periodSeconds: 5
       volumes:
@@ -60,4 +59,4 @@ spec:
               - key: homework
                 operator: In
                 values:
-                - "true"
+                - "true"root@minikube:/opt/andrewtsvirko_repo#
