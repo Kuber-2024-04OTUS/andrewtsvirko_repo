@@ -5,6 +5,9 @@
 #Добавляем метку на node minikube чтобы в последующем применилось affinity и поды расположились только на нодах с меткой homework=true
 kubectl label nodes minikube homework=true
 
+#Установим ингресс контроллер в миникуб
+minikube addons enable ingress
+
 Новая проба по ДЗ
 Было:
  readinessProbe:
@@ -22,7 +25,37 @@ readinessProbe:
             initialDelaySeconds: 5
             periodSeconds: 5
 
+Заменим тип сервиса с прошлой ДЗ
+Было:
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-server-service
+  namespace: homework
+spec:
+  selector:
+    app: web-server
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
+  type: NodePort
+ 
+ Стало:
 
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-server-service
+  namespace: homework
+spec:
+  selector:
+    app: web-server
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
+  type: ClusterIP
 
 Более подробное описание кластера было в предыдущей ветке, буду писать более кратко.
 Находясь в каталоге проекта выполнить применить следующие манифесты:
